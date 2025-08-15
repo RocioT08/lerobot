@@ -67,6 +67,7 @@ from lerobot.common.teleoperators.keyboard.teleop_keyboard import KeyboardEndEff
 from lerobot.common.utils.robot_utils import busy_wait
 from lerobot.common.utils.utils import log_say
 from lerobot.configs import parser
+from gymnasium.wrappers import TimeLimit
 
 logging.basicConfig(level=logging.INFO)
 
@@ -1863,6 +1864,18 @@ def make_robot_env(cfg: EnvConfig) -> gym.Env:
             use_gripper=cfg.wrapper.use_gripper,
             gripper_penalty=cfg.wrapper.gripper_penalty,
         )
+        
+        # Forzar que el episodio dure más usando tu config
+        max_steps = 100000  # valor por defecto muy alto
+        try:
+            if hasattr(cfg, "fps") and hasattr(cfg, "wrapper") and hasattr(cfg.wrapper, "control_time_s"):
+                max_steps = int(cfg.fps * cfg.wrapper.control_time_s)
+                if max_steps < 300:  # mínimo de seguridad
+                   max_steps = 300
+        except Exception:
+             pass
+        env = TimeLimit(env, max_episode_steps=max_steps)
+    
         env = GymHilObservationProcessorWrapper(env=env)
         env = GymHilDeviceWrapper(env=env, device=cfg.device)
         env = BatchCompatibleWrapper(env=env)
