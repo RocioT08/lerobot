@@ -149,6 +149,7 @@ env/
 venv/
 env.bak/
 venv.bak/
+myenv_lerebot/
 
 # Spyder project settings
 .spyderproject
