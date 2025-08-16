@@ -181,7 +181,7 @@ class EnvTransformConfig:
     add_ee_pose_to_observation: bool = False
     crop_params_dict: Optional[dict[str, tuple[int, int, int, int]]] = None
     resize_size: Optional[tuple[int, int]] = None
-    control_time_s: float = 20.0
+    control_time_s: float = 100.0
     fixed_reset_joint_positions: Optional[Any] = None
     reset_time_s: float = 5.0
     use_gripper: bool = True
