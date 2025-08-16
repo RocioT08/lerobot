@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git fetch:*)",
+      "Bash(rm:*)",
+      "Bash(GIT_LFS_SKIP_SMUDGE=1 git checkout -b simulation-testing origin/simulation-testing)",
+      "Bash(true)",
+      "Bash(python -m lerobot.scripts.rl.gym_manipulator:*)",
+      "Bash(pip install:*)",
+      "Bash(python3 -m pip install gymnasium)",
+      "Bash(python3 -m pip install:*)",
+      "WebSearch",
+      "Bash(python:*)",
+      "Bash(mjpython:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -1872,9 +1872,18 @@ def make_robot_env(cfg: EnvConfig) -> gym.Env:
                 max_steps = int(cfg.fps * cfg.wrapper.control_time_s)
                 if max_steps < 300:  # mínimo de seguridad
                    max_steps = 300
-        except Exception:
+                print(f"DEBUG: Setting episode to {max_steps} steps = {max_steps/cfg.fps:.1f} seconds")
+        except Exception as e:
+             print(f"DEBUG: Exception calculating max_steps: {e}")
              pass
+        
+        # Override any existing time limits
+        if hasattr(env, '_max_episode_steps'):
+            print(f"DEBUG: Environment had max_episode_steps={env._max_episode_steps}, overriding to {max_steps}")
+            env._max_episode_steps = max_steps
+        
         env = TimeLimit(env, max_episode_steps=max_steps)
+        print(f"DEBUG: Applied TimeLimit wrapper with max_episode_steps={max_steps}")
     
         env = GymHilObservationProcessorWrapper(env=env)
         env = GymHilDeviceWrapper(env=env, device=cfg.device)

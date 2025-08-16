@@ -23,7 +23,7 @@
             128,
             128
         ],
-        "control_time_s": 100, 
+        "control_time_s": 120, 
         "use_gripper": true,
         "fixed_reset_joint_positions": [
             0.0,
@@ -48,7 +48,7 @@
     "pretrained_policy_name_or_path": null,
     "device": "cpu",
     "push_to_hub": true,
-    "fps": 30, 
+    "fps": 60, 
     "features": {
         "observation.images.front": {
             "type": "VISUAL",
